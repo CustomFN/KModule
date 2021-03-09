@@ -12,9 +12,9 @@ public class TestStream {
     private static List<User> users =  Lists.newArrayList();
 
     static {
-        users.add(new User("A", 10, "北京"));
-        users.add(new User("B", 20, "上海"));
-        users.add(new User("C", 30, "杭州"));
+//        users.add(new User("A", 10, "北京"));
+//        users.add(new User("B", 20, "上海"));
+//        users.add(new User("C", 30, "杭州"));
     }
 
     public static void main(String[] args) {

@@ -1,6 +1,8 @@
 package com.z.kmodule.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -9,13 +11,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.collections.CollectionUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Test {
 
@@ -31,7 +34,192 @@ public class Test {
     public static final String TOTAL_BUSINESS_LESS_MINUTE_NEW        = "需再营业%s分钟才可开启特权";
     public static final String TOTAL_BUSINESS_LESS_MINUTE_29_DAY_NEW = "需再营业%s分钟才可开启特权";
 
-    public static void main(String[] args) throws JSONException {
+
+    public  static  boolean hasGroupsSizeX(int[] deck) {
+        if(deck == null || deck.length == 0) {
+            return false;
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < deck.length; i++) {
+            Integer number = map.get(deck[i]);
+            if(number == null) {
+                number = 1;
+            } else {
+                number++;
+            }
+            map.put(deck[i], number);
+        }
+
+        boolean isOk = true;
+        Integer number = null;
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            Integer value = entry.getValue();
+            if(number == null) {
+                number = value;
+            }
+            if(!number.equals(value) || value < 2) {
+                isOk = false;
+                break;
+            }
+        }
+        return isOk;
+    }
+
+    private  static void dodo(String i, String j) {
+        j = i + j;
+        System.out.println(j);
+    }
+
+    public static void main(String[] args)  {
+
+
+//        List<Long> wmPoiIds = Lists.newArrayList(1L);
+//        DDD ddd = new DDD();
+//        ddd.setCustomerId(10000002);
+//        ddd.setWmPoiId(1L);
+//        List<DDD> list = Lists.newArrayList(ddd);
+//        Map<Long, Integer> wmPoiIdCustomerIdMap = list.stream().collect(Collectors.toMap(item -> item.getWmPoiId(), item -> item.getCustomerId()));
+//        System.out.println("---" + JSON.toJSONString(wmPoiIdCustomerIdMap));
+//
+//        List<Integer> wmCustomerIdList = Lists.newArrayList();
+//        wmPoiIdCustomerIdMap.entrySet().stream().forEach(item -> wmCustomerIdList.add(item.getValue()));
+//        System.out.println(JSON.toJSONString(wmCustomerIdList));
+//
+//        List<WmCustomerBasicBo> wmCustomerBasicBoList = Lists.newArrayList();
+//        Map<Integer, WmCustomerBasicBo> collect1 = wmCustomerBasicBoList.stream().collect(Collectors.toMap(item -> item.getId(), item -> item));
+//        System.out.println(JSON.toJSONString(collect1));
+//
+//        Map<Long, WmCustomerBasicBo> mapResult = Maps.newHashMap();
+//        wmPoiIds.stream().forEach(item -> {
+//            Integer wmCustomerId = wmPoiIdCustomerIdMap.get(item);
+//            WmCustomerBasicBo wmCustomerBasicBo = collect1.get(wmCustomerId);
+//            mapResult.put(item, wmCustomerBasicBo);
+//        });
+//        System.out.println(JSON.toJSONString(mapResult));
+
+        String s = "111111111111111111111111111111111111111111111111111";
+        System.out.println(s.length());
+        System.out.println(s.length() > 50);
+
+//        HashMap<Object, Object> map = Maps.newHashMap();
+//        map.put("1", "1");
+//        map.remove("2");
+//        map.remove("3");
+//        map.remove("4");
+//        System.out.println(map);
+
+//        User user = new User();
+//        user.setName("");
+//        user.setAge(1);
+//        user.setAddress("222");
+//
+//        User u = new User();
+//        u.setAddress("11");
+//        u.setAge(2);
+//
+//        System.out.println(user);
+//        BeanUtils.copyProperties(u, user);
+//        System.out.println(user);
+
+//        DateTime time = new DateTime();
+//        System.out.println(time.toLocalDateTime());
+//        System.out.println(time.toLocalDate());
+//        System.out.println(time.toLocalTime());
+//        List<EnumTest> enumTests = Lists.newArrayList(EnumTest.AC, EnumTest.B, EnumTest.A, EnumTest.C);
+//        List<EnumTest> collect = enumTests.stream().sorted(Comparator.comparingInt(EnumTest::getRank)).collect(Collectors.toList());
+//        System.out.println(enumTests);
+//        System.out.println(collect);
+
+
+//        String msg = "111";
+//        dodo("222", msg);
+//        System.out.println(msg);
+
+//        String msg = "亲爱的商家：$$shop#$(ID:$$shopid#$)，由于您的门店已下线超过30日，系统将自动取消您的《“战略合作伙伴”优惠政策申请书》并退还保证金余额至入驻美团外卖留存银行卡，如有疑问请联系您的业务（品牌）经理";
+//        String shop = "娃哈哈";
+//        String shopid = "111";
+//        String.format(msg, shop, shopid);
+
+//        String msg = "{\"address\":\"北京原创天地\",\"utime\":1585808608,\"customerNumber\":\"246644454276656765\",\"isLeaf\":1,\"customerName\":\"测试客户对接自入驻\",\"validateDate\":0,\"effective\":0,\"customerType\":4,\"superCustomerId\":0,\"customerExtPro\":\"\",\"legalPerson\":\"大老板\",\"mtCustomerId\":0,\"ctime\":1585808607,\"auditStatus\":1,\"id\":11778911,\"customerSecondType\":0,\"ownerUid\":0}";
+//        JSONObject jsonObject = JSONObject.parseObject(msg);
+//        System.out.println();
+//
+//        JSONObject object = new JSONObject();
+//        JSONObject data = new JSONObject();
+//        JSONObject value = new JSONObject();
+//        value.put("value", JSON.toJSONString(jsonObject));
+//        data.put("data", value);
+//        object.put("doc", data);
+//        System.out.println(object);
+
+//        int[] arr = new int[]{1,1,2,2,2,2};
+//        System.out.println(hasGroupsSizeX(arr));
+
+//        Map<Integer, Integer> map = new HashMap<>();
+//        Integer number = null;
+//        boolean isOk = true;
+//        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+//            Integer value = entry.getValue();
+//            if (number == null) {
+//                number = value;
+//            }
+//            if (!number.equals(value)) {
+//                isOk = false;
+//            }
+//        }
+//        return isOk;
+//        JSONArray array = new JSONArray();
+//        for (int i = 0; i < 8; i++) {
+//            JSONObject object = new JSONObject();
+//            object.put("name", i);
+//            object.put("value", i);
+//            array.add(object);
+//        }
+//
+//        System.out.println(JSON.toJSONString(array));
+//
+//        for (int i = 0; i < array.size() / 2; i++) {
+//            Object object1 = array.get(i);
+//            Object object2 = array.get(i + 4);
+//            System.out.println("obj1 = " + JSON.toJSONString(object1));
+//            System.out.println("obj2 = " + JSON.toJSONString(object2));
+//            System.out.println("0-----------------0");
+//        }
+
+//        System.out.println(JSON.toJSONString(Lists.newArrayList()));
+
+//        String time = "2020-01-01 11:11:11";
+//        String substring = time.substring(0, time.indexOf(" "));
+//        System.out.println(substring);
+//        ArrayList<Integer> list = Lists.newArrayList(1, 2, 3, 4);
+//        if (CollectionUtils.isNotEmpty(list)) {
+//            Integer firstPhysicsCity = list.get(0);
+//
+//            StringBuilder cityNames = new StringBuilder().append(firstPhysicsCity);
+//            for (int i = 1; i < list.size(); i++) {
+//                cityNames.append("、").append(list.get(i));
+//            }
+//            System.out.println(cityNames.toString());
+//        }
+
+//        String str = "";
+//        System.out.println(str);
+//        System.out.println(StringUtils.isBlank(str));
+//        System.out.println(StringUtils.isEmpty(str));
+
+//        Map<Integer, Integer> map = Maps.newHashMap();
+//        map.put(1, 1);
+//        map.put(2, 2);
+//        Map<Integer, Integer> mapmap = Maps.newHashMap();
+//        for (Integer key : map.keySet()) {
+//            if (1 == key) {
+//                mapmap.put(3, 3);
+//            }
+//        }
+//        map.putAll(mapmap);
+//        System.out.println(map);
+
 //        Map<Integer, Boolean> map = Maps.newHashMap();
 //        map.put(1, Boolean.TRUE);
 //        map.put(2, Boolean.FALSE);
@@ -164,17 +352,23 @@ public class Test {
 
 
 //        Set<Integer> ages = Sets.newHashSet(1, 2, 3);
-//        User user1 = new User("1", 1, "1");
-//        User user2 = new User("2", 2, "2");
-//        User user3 = new User("3", 3, "3");
-//        User user4 = new User("4", 4, "4");
-//        List<User> users = Lists.newArrayList(user1, user2, user3, user4);
+        User user1 = new User("1", 1, "1");
+        User user2 = new User("2", 2, "2");
+        User user3 = new User("3", 3, "3");
+        User user4 = new User("4", 4, "4");
+        List<User> users = Lists.newArrayList(user1, user2, user3, user4);
+        Map<Integer, List<User>> collect = users.stream().collect(Collectors.groupingBy(User::getAge));
+        System.out.println(JSON.toJSONString(collect));
+//        User user = users.get(users.size() - 1);
+//        user.setAge(999);
+//        user.setAddress("111111");
+//        System.out.println(JSON.toJSONString(users));
 //
 //        List<User> list = complexQueryFromTaskCommon(users, ages);
 //        System.out.println(list);
 
-        TaskMsg taskMsg = JSON.parseObject(msg, TaskMsg.class);
-        System.out.println(JSON.toJSONString(taskMsg));
+//        TaskMsg taskMsg = JSON.parseObject(msg, TaskMsg.class);
+//        System.out.println(JSON.toJSONString(taskMsg));
     }
 
     private static final String msg = "{\"batch\":true,\"callBackUrl\":\"http://9776-cuaur-sl-customer.waimai.test.sankuai.com/customer/callback/v1/w/notify\",\"coldDataList\":[\"econtractUserEntity\",\"flowList\",\"stageInfoBoList\",\"stageBatchInfoBoList\"],\"contextState\":\"context_to_execute\",\"econtractEntity\":{\"authorityMisId\":\"zhujiakun\",\"ctime\":1568615199000,\"econtractType\":\"type_qua_real_letter\",\"econtractUserId\":2,\"id\":73,\"name\":\"资质属实商家承诺函-流程化\",\"utime\":1568615785000,\"valid\":1},\"econtractRecordEntity\":{\"id\":55640,\"recordKey\":\"EC_letter_c4c2d113-9511-42\"},\"econtractUserEntity\":{\"ctime\":1509170258000,\"id\":2,\"name\":\"waimai_contract\",\"token\":\"USR_waimai_contract_7377f61f-11af-42\",\"type\":\"type_app\",\"valid\":1},\"flowList\":[\"qua_real_letter\"],\"recordBizKey\":\"13949\",\"stageBatchInfoBoList\":[{\"metaFlowList\":[\"qua_real_letter\"],\"paramInfoBoMap\":{},\"pdfContentInfoBoMap\":{\"qua_real_letter\":[{\"pdfBizContent\":[],\"pdfMetaContent\":{\"contractNum\":\"WMYE-010-04-010030828\",\"quaName\":\"大北京主体贝贝\",\"signTimeMonth\":\"09\",\"partAName\":\"大北京主体贝贝\",\"quaNumber\":\"12332\",\"signTimeYear\":\"2019\",\"signTimeDay\":\"16\",\"partAEstamp\":\"美团外卖商家签章专属\"},\"pdfTemplateName\":\"qua_real_letter\",\"vertical\":true}]},\"stageName\":\"create_pdf\"},{\"certifyInfoBo\":{\"caType\":\"COMPANY\",\"customerName\":\"大北京主体贝贝\",\"email\":\"\",\"mobile\":\"13552535506\",\"quaNum\":\"12332\"},\"stageName\":\"ca_certify_d\"},{\"signerInfoBo\":{\"bankCardNo\":\"6216261000000000018\",\"bankName\":\"工商银行\",\"channelList\":[],\"clientId\":\"sms-contract_kefu\",\"clientSecret\":\"AA81E263E10F5D64B7FCDAC71D11AB8D\",\"idCardNo\":\"341126197709218366\",\"mobileList\":[\"13552535506\"],\"name\":\"全渠道\",\"phone\":\"13552535506\",\"sendSms\":true,\"smsParamMap\":{\"other\":\"录入完成\",\"phone\":\"\",\"module\":\"《资质属实商家承诺函》\",\"name\":\"朱家琨\",\"detail\":\"WMYE-010-04-010030828\",\"platform\":\"美团外卖\"},\"smsTemplateId\":\"20365\",\"smsTempletVersion\":2},\"stageName\":\"real_name_auth_d\"},{\"certifyInfoBo\":{\"caType\":\"COMPANY\",\"customerName\":\"大北京主体贝贝\",\"email\":\"\",\"mobile\":\"13552535506\",\"quaNum\":\"12332\"},\"estampInfoBo\":{\"estampMap\":{\"estamp_sign_key\":\"美团外卖商家签章专属\"}},\"metaFlowList\":[\"qua_real_letter\"],\"stageName\":\"econtract_stamp_d\"}],\"stageNameAndCustomerId\":{},\"stampKey\":\"ssq\",\"taskContext\":{\"econtractStage\":\"apply_econtract\",\"errorCode\":0,\"executorResult\":{},\"retryTimes\":0,\"state\":\"task_success\",\"taskId\":0},\"taskTypeAndContractIdMap\":{},\"templateProcessorType\":\"commonProcessor\"}";

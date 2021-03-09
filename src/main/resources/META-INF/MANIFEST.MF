@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Agent-Class: com.z.kmodule.javassist.demo01.TestAgent
+Created-By: kmodule
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Premain-Class: com.z.kmodule.javassist.demo01.TestAgent
